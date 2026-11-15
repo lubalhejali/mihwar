@@ -51,6 +51,16 @@ nav.top a:hover{color:var(--amber-d)}
 .cats ul{display:flex;gap:28px;list-style:none;overflow-x:auto;scrollbar-width:none;padding:10px 0;color:var(--muted);font-size:15px;white-space:nowrap}
 .cats ul::-webkit-scrollbar{display:none}
 .cats a:hover{color:var(--ink)}
+.cats li{position:relative}
+.cats .dd{display:none}
+@media(min-width:1001px){
+  .cats ul{overflow:visible;justify-content:space-between}
+  .cats .dd{position:absolute;top:100%;inset-inline-start:-14px;margin-top:10px;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(14,42,71,.15);padding:8px;z-index:60;flex-direction:column}
+  .cats .dd::before{content:"";position:absolute;inset:-12px 0 auto;height:12px}
+  .cats li.has-sub:hover .dd,.cats li.has-sub:focus-within .dd{display:flex}
+  .cats .dd a{padding:8px 12px;border-radius:6px;color:var(--ink)}
+  .cats .dd a:hover{background:var(--soft);color:var(--amber-d)}
+}
 
 /* ===== Hero ===== */
 .hero{padding:24px 0 0}
@@ -82,14 +92,20 @@ section{padding:72px 0}
 .sub{color:var(--muted);margin-top:-16px;margin-bottom:28px}
 
 /* discipline grid */
-.disc{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.disc a{border:1px solid var(--line);border-radius:14px;padding:20px 16px;display:flex;flex-direction:column;gap:14px;background:var(--card);transition:.2s;min-height:130px}
-.disc a:hover{box-shadow:0 8px 24px rgba(14,42,71,.12);transform:translateY(-2px);border-color:var(--amber)}
-.disc .ic{width:44px;height:44px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--navy-2)}
+.disc{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dcard{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card);transition:.2s;display:flex;flex-direction:column;gap:14px}
+.dcard:hover{box-shadow:0 8px 24px rgba(14,42,71,.12);border-color:var(--amber)}
+.dhead{display:flex;align-items:center;gap:12px}
+.dhead span{font-weight:600;font-size:17px}
+.dhead:hover span{color:var(--amber-d)}
+.disc .ic{width:44px;height:44px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--navy-2);flex:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .disc .ic{color:var(--amber)}}
-.disc span{font-weight:500;font-size:15px}
-@media(max-width:1100px){.disc{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.disc{grid-template-columns:repeat(2,1fr)}}
+:root[data-theme="dark"] .disc .ic{color:var(--amber)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{font-size:13px;border:1px solid var(--line);border-radius:20px;padding:4px 12px;color:var(--muted);transition:.15s}
+.chips a:hover{border-color:var(--amber);color:var(--ink);background:rgba(242,163,58,.1)}
+@media(max-width:1000px){.disc{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.disc{grid-template-columns:1fr}}
 
 /* service carousel */
 .car-head{display:flex;justify-content:space-between;align-items:center}
@@ -132,6 +148,7 @@ section{padding:72px 0}
 .ent ul{list-style:none;display:grid;gap:12px;margin-bottom:26px}
 .ent li{display:flex;gap:10px;align-items:flex-start;color:#D5E1EE}
 .ent li svg{flex:none;margin-top:5px;color:var(--amber)}
+.ent>*{min-width:0}
 .ent .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px}
 .offer{background:#fff;color:#1d2633;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:center;margin-bottom:12px}
 .offer:last-child{margin-bottom:0}
@@ -140,14 +157,14 @@ section{padding:72px 0}
 .offer .meta b{display:block;font-size:15px}
 .offer .meta small{color:#5E6B7A}
 .offer .price{font-weight:700;color:#0E2A47;white-space:nowrap}
-@media(max-width:900px){.ent{grid-template-columns:1fr;padding:32px 20px}.ent h2{font-size:28px}}
+@media(max-width:900px){.ent{grid-template-columns:minmax(0,1fr);padding:32px 20px}.ent h2{font-size:28px}}
 
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
 .stats div{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card)}
 .stats b{display:block;font-size:34px;color:var(--amber-d);font-weight:700}
 .stats span{color:var(--muted)}
-@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.stats div{padding:18px 10px}.stats b{font-size:26px}}
 
 /* testimonials */
 .tst{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -243,18 +260,12 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
   </div>
   <div class="cats"><div class="wrap"><ul>
     <li><a href="#">الأكثر طلبًا 🔥</a></li>
-    <li><a href="#">التصميم المعماري</a></li>
-    <li><a href="#">الهندسة الإنشائية</a></li>
-    <li><a href="#">الكهرباء والطاقة</a></li>
-    <li><a href="#">الميكانيكا والتكييف (MEP)</a></li>
-    <li><a href="#">المساحة والطبوغرافيا</a></li>
-    <li><a href="#">حساب الكميات والتسعير</a></li>
-    <li><a href="#">BIM والنمذجة ثلاثية الأبعاد</a></li>
-    <li><a href="#">إدارة المشاريع</a></li>
-    <li><a href="#">التصميم الداخلي</a></li>
-    <li><a href="#">السلامة والحماية من الحريق</a></li>
-    <li><a href="#">البنية التحتية والطرق</a></li>
-    <li><a href="#">الاستشارات والإشراف</a></li>
+    <li class="has-sub"><a href="#">الهندسة المعمارية</a><div class="dd"><a href="#">العمارة</a><a href="#">التصميم الداخلي</a><a href="#">التصميم الحضري</a><a href="#">تنسيق المواقع</a></div></li>
+    <li class="has-sub"><a href="#">الهندسة المدنية</a><div class="dd"><a href="#">الإنشائية</a><a href="#">الطرق</a><a href="#">الجسور</a><a href="#">التربة والأساسات</a><a href="#">المساحة</a></div></li>
+    <li class="has-sub"><a href="#">الهندسة الكهربائية</a><div class="dd"><a href="#">القوى الكهربائية</a><a href="#">أنظمة المباني</a><a href="#">التيار الخفيف</a><a href="#">الاتصالات</a></div></li>
+    <li class="has-sub"><a href="#">الهندسة الميكانيكية</a><div class="dd"><a href="#">التكييف والتهوية HVAC</a><a href="#">السباكة</a><a href="#">مكافحة الحريق</a><a href="#">المصاعد</a></div></li>
+    <li class="has-sub"><a href="#">الهندسة البيئية والاستدامة</a><div class="dd"><a href="#">الاستدامة</a><a href="#">كفاءة الطاقة</a><a href="#">الهندسة البيئية</a><a href="#">إدارة المياه والنفايات</a></div></li>
+    <li class="has-sub"><a href="#">إدارة وهندسة المشاريع</a><div class="dd"><a href="#">إدارة المشاريع</a><a href="#">إدارة التشييد</a><a href="#">التخطيط والجدولة</a><a href="#">ضبط التكاليف</a></div></li>
   </ul></div></div>
 </header>
 
@@ -311,18 +322,12 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 <!-- ========== DISCIPLINES ========== -->
 <section><div class="wrap">
   <div class="disc">
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 23V10l10-6 10 6v13M9 23v-7h8v7"/></svg></div><span>التصميم المعماري</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 22h18M6 22V6h14v16M6 11h14M6 16h14M11 6v16M15 6v16"/></svg></div><span>الهندسة الإنشائية</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3 6 15h7l-1 8 8-12h-7z"/></svg></div><span>الكهرباء والطاقة</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="13" cy="13" r="3.5"/><path d="M13 3v4M13 19v4M3 13h4M19 13h4M6 6l3 3M17 17l3 3M6 20l3-3M17 9l3-3"/></svg></div><span>الميكانيكا والتكييف</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3v6M8 23l5-14 5 14M10 17h6"/><circle cx="13" cy="3" r="1"/></svg></div><span>المساحة والطبوغرافيا</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="16" height="20" rx="2"/><path d="M9 8h8M9 12h8M9 16h5"/></svg></div><span>حساب الكميات والتسعير</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m13 3 9 5v10l-9 5-9-5V8z"/><path d="m4 8 9 5 9-5M13 13v10"/></svg></div><span>BIM والنمذجة ثلاثية الأبعاد</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="20" height="17" rx="2"/><path d="M3 10h20M8 3v4M18 3v4M7 15h4M7 18h7"/></svg></div><span>إدارة المشاريع والجدولة</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18v-5a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5M4 18h18M6 18v3M20 18v3M8 10V7h10v3"/></svg></div><span>التصميم الداخلي</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 23c5 0 7-4 7-7 0-5-5-7-5-12-3 2-4 5-4 7-1-1-2-2-2-4-2 2-3 5-3 9 0 3 2 7 7 7z"/></svg></div><span>السلامة والحماية من الحريق</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 22 10 4h6l7 18M13 6v3M13 12v3M13 18v3"/></svg></div><span>البنية التحتية والطرق</span></a>
-    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21V8l8-4 8 4v13"/><path d="m9 14 3 3 5-6"/></svg></div><span>الإشراف والاستشارات</span></a>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 23V10l10-6 10 6v13M9 23v-7h8v7"/></svg></div><span>الهندسة المعمارية</span></a><div class="chips"><a href="#">العمارة</a><a href="#">التصميم الداخلي</a><a href="#">التصميم الحضري</a><a href="#">تنسيق المواقع</a></div></div>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 22h18M6 22V6h14v16M6 11h14M6 16h14M11 6v16M15 6v16"/></svg></div><span>الهندسة المدنية</span></a><div class="chips"><a href="#">الإنشائية</a><a href="#">الطرق</a><a href="#">الجسور</a><a href="#">التربة والأساسات</a><a href="#">المساحة</a></div></div>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3 6 15h7l-1 8 8-12h-7z"/></svg></div><span>الهندسة الكهربائية</span></a><div class="chips"><a href="#">القوى الكهربائية</a><a href="#">أنظمة المباني</a><a href="#">التيار الخفيف</a><a href="#">الاتصالات</a></div></div>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="13" cy="13" r="3.5"/><path d="M13 3v4M13 19v4M3 13h4M19 13h4M6 6l3 3M17 17l3 3M6 20l3-3M17 9l3-3"/></svg></div><span>الهندسة الميكانيكية</span></a><div class="chips"><a href="#">التكييف والتهوية HVAC</a><a href="#">السباكة</a><a href="#">مكافحة الحريق</a><a href="#">المصاعد</a></div></div>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21c0-9 6-15 17-16-1 11-7 17-16 17"/><path d="M5 21 15 11"/></svg></div><span>الهندسة البيئية والاستدامة</span></a><div class="chips"><a href="#">الاستدامة</a><a href="#">كفاءة الطاقة</a><a href="#">الهندسة البيئية</a><a href="#">إدارة المياه والنفايات</a></div></div>
+    <div class="dcard"><a class="dhead" href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="20" height="17" rx="2"/><path d="M3 10h20M8 3v4M18 3v4M7 15h4M7 18h7"/></svg></div><span>إدارة وهندسة المشاريع</span></a><div class="chips"><a href="#">إدارة المشاريع</a><a href="#">إدارة التشييد</a><a href="#">التخطيط والجدولة</a><a href="#">ضبط التكاليف</a></div></div>
   </div>
 </div></section>
 
@@ -417,7 +422,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 <section style="padding-top:0"><div class="wrap">
   <div class="stats">
     <div><b>+8,000</b><span>مهندس مستقل موثّق</span></div>
-    <div><b>+40</b><span>تخصصًا هندسيًا</span></div>
+    <div><b>+25</b><span>تخصصًا هندسيًا فرعيًا</span></div>
     <div><b>+12,000</b><span>مشروع منجز</span></div>
     <div><b>4.9/5</b><span>متوسط رضا العملاء</span></div>
   </div>
@@ -457,7 +462,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 <!-- ========== FOOTER ========== -->
 <footer><div class="wrap">
   <div class="fcols">
-    <div><h5>التخصصات</h5><ul><li><a href="#">التصميم المعماري</a></li><li><a href="#">الهندسة الإنشائية</a></li><li><a href="#">الكهرباء والطاقة</a></li><li><a href="#">الميكانيكا والتكييف</a></li><li><a href="#">المساحة</a></li><li><a href="#">حساب الكميات</a></li><li><a href="#">BIM</a></li></ul></div>
+    <div><h5>التخصصات</h5><ul><li><a href="#">الهندسة المعمارية</a></li><li><a href="#">الهندسة المدنية</a></li><li><a href="#">الهندسة الكهربائية</a></li><li><a href="#">الهندسة الميكانيكية</a></li><li><a href="#">الهندسة البيئية والاستدامة</a></li><li><a href="#">إدارة وهندسة المشاريع</a></li></ul></div>
     <div><h5>للجهات الطارحة</h5><ul><li><a href="#">كيف تعمل المنصة</a></li><li><a href="#">اطرح مشروعًا</a></li><li><a href="#">قصص نجاح</a></li><li><a href="#">ضمان الجودة</a></li><li><a href="#">الأدلة</a></li></ul></div>
     <div><h5>للمهندسين</h5><ul><li><a href="#">انضم كمهندس</a></li><li><a href="#">التحقق المهني</a></li><li><a href="#">مستويات المهندسين</a></li><li><a href="#">مجتمع المهندسين</a></li><li><a href="#">الفعاليات</a></li></ul></div>
     <div><h5>حلول الشركات</h5><ul><li><a href="#">مِحوَر للشركات</a></li><li><a href="#">إدارة المشاريع</a></li><li><a href="#">ترشيح المهندسين</a></li><li><a href="#">تواصل مع المبيعات</a></li></ul></div>
@@ -520,28 +525,56 @@ setInterval(()=>{if(document.activeElement!==inp){i=(i+1)%ph.length;inp.placehol
 
 /* ===== Demo service catalog ===== */
 const CATALOG=[
- ['مخططات معمارية للفلل','التصميم المعماري',1500],['مخططات معمارية لعمارة سكنية','التصميم المعماري',3500],['واجهات معمارية حديثة','التصميم المعماري',900],
- ['تصميم إنشائي خرساني','الهندسة الإنشائية',2500],['تصميم منشآت حديدية','الهندسة الإنشائية',3000],['تقرير سلامة إنشائية وترميم','الهندسة الإنشائية',1800],
- ['المخططات الكهربائية','الكهرباء والطاقة',1200],['تصميم أنظمة الطاقة الشمسية','الكهرباء والطاقة',1600],['حساب الأحمال الكهربائية','الكهرباء والطاقة',700],
- ['تصميم أنظمة التكييف HVAC','الميكانيكا والتكييف MEP',1800],['تصميم الصحي والسباكة','الميكانيكا والتكييف MEP',1100],['مخططات MEP منسقة','الميكانيكا والتكييف MEP',4000],
- ['الرفع المساحي والطبوغرافي','المساحة والطبوغرافيا',1400],['تحديد حدود وقطع الأراضي','المساحة والطبوغرافيا',800],
- ['حساب كميات وجداول BOQ','حساب الكميات والتسعير',1300],['تسعير مناقصات المقاولات','حساب الكميات والتسعير',2200],
- ['نمذجة BIM بالـ Revit','BIM والنمذجة ثلاثية الأبعاد',2800],['إظهار معماري 3D واقعي','BIM والنمذجة ثلاثية الأبعاد',900],['كشف التعارضات Clash Detection','BIM والنمذجة ثلاثية الأبعاد',2000],
- ['جدولة المشاريع Primavera','إدارة المشاريع',1500],['إدارة مشروع وإعداد تقارير التقدم','إدارة المشاريع',3500],
- ['تصميم داخلي سكني','التصميم الداخلي',1200],['تصميم داخلي تجاري ومكاتب','التصميم الداخلي',2400],
- ['مخططات الدفاع المدني','السلامة والحماية من الحريق',1600],['تصميم أنظمة الإطفاء والإنذار','السلامة والحماية من الحريق',2100],
- ['تصميم طرق وتقاطعات','البنية التحتية والطرق',3800],['تصميم شبكات المياه والصرف','البنية التحتية والطرق',3200],
- ['إشراف هندسي على التنفيذ','الاستشارات والإشراف',4500],['استشارة هندسية بالساعة','الاستشارات والإشراف',250]
-].map(([t,c,p],k)=>({t,c,p,r:(4.6+((k*7)%5)/10).toFixed(1)}));
+ ['مخططات معمارية للفلل','الهندسة المعمارية','العمارة',1500],
+ ['مخططات معمارية لعمارة سكنية','الهندسة المعمارية','العمارة',3500],
+ ['واجهات معمارية حديثة','الهندسة المعمارية','العمارة',900],
+ ['إظهار معماري 3D واقعي','الهندسة المعمارية','العمارة',900],
+ ['نمذجة BIM بالـ Revit','الهندسة المعمارية','العمارة',2800],
+ ['تصميم داخلي سكني','الهندسة المعمارية','التصميم الداخلي',1200],
+ ['تصميم داخلي تجاري ومكاتب','الهندسة المعمارية','التصميم الداخلي',2400],
+ ['مخطط عام وتقسيم أراضٍ','الهندسة المعمارية','التصميم الحضري',5000],
+ ['تصميم الساحات والفراغات العامة','الهندسة المعمارية','التصميم الحضري',3800],
+ ['تصميم تنسيق المواقع والحدائق','الهندسة المعمارية','تنسيق المواقع',1300],
+ ['تصميم إنشائي خرساني','الهندسة المدنية','الإنشائية',2500],
+ ['تصميم منشآت حديدية','الهندسة المدنية','الإنشائية',3000],
+ ['تقرير سلامة إنشائية وترميم','الهندسة المدنية','الإنشائية',1800],
+ ['تصميم طرق وتقاطعات','الهندسة المدنية','الطرق',3800],
+ ['تصميم وتحليل الجسور','الهندسة المدنية','الجسور',6000],
+ ['تقرير تربة وتصميم أساسات','الهندسة المدنية','التربة والأساسات',2000],
+ ['الرفع المساحي والطبوغرافي','الهندسة المدنية','المساحة',1400],
+ ['تحديد حدود وقطع الأراضي','الهندسة المدنية','المساحة',800],
+ ['حساب الأحمال الكهربائية','الهندسة الكهربائية','القوى الكهربائية',700],
+ ['تصميم محطات ولوحات التوزيع','الهندسة الكهربائية','القوى الكهربائية',2600],
+ ['المخططات الكهربائية','الهندسة الكهربائية','أنظمة المباني',1200],
+ ['تصميم الإنارة الداخلية والخارجية','الهندسة الكهربائية','أنظمة المباني',900],
+ ['كاميرات المراقبة وأنظمة الإنذار','الهندسة الكهربائية','التيار الخفيف',1000],
+ ['تصميم شبكات البيانات والاتصالات','الهندسة الكهربائية','الاتصالات',1500],
+ ['تصميم أنظمة التكييف HVAC','الهندسة الميكانيكية','التكييف والتهوية HVAC',1800],
+ ['حسابات التهوية وأحمال التبريد','الهندسة الميكانيكية','التكييف والتهوية HVAC',900],
+ ['تصميم الصحي والسباكة','الهندسة الميكانيكية','السباكة',1100],
+ ['مخططات الدفاع المدني','الهندسة الميكانيكية','مكافحة الحريق',1600],
+ ['تصميم أنظمة الإطفاء والرشاشات','الهندسة الميكانيكية','مكافحة الحريق',2100],
+ ['تصميم واختيار المصاعد','الهندسة الميكانيكية','المصاعد',900],
+ ['استشارات المباني الخضراء LEED','الهندسة البيئية والاستدامة','الاستدامة',3500],
+ ['نمذجة الطاقة وتدقيق الاستهلاك','الهندسة البيئية والاستدامة','كفاءة الطاقة',2200],
+ ['دراسة تقييم الأثر البيئي','الهندسة البيئية والاستدامة','الهندسة البيئية',4000],
+ ['تصميم شبكات المياه والصرف','الهندسة البيئية والاستدامة','إدارة المياه والنفايات',3200],
+ ['خطة إدارة النفايات للمشاريع','الهندسة البيئية والاستدامة','إدارة المياه والنفايات',1500],
+ ['إدارة مشروع وإعداد تقارير التقدم','إدارة وهندسة المشاريع','إدارة المشاريع',3500],
+ ['إشراف هندسي على التنفيذ','إدارة وهندسة المشاريع','إدارة التشييد',4500],
+ ['جدولة المشاريع Primavera','إدارة وهندسة المشاريع','التخطيط والجدولة',1500],
+ ['حساب كميات وجداول BOQ','إدارة وهندسة المشاريع','ضبط التكاليف',1300],
+ ['تسعير مناقصات المقاولات','إدارة وهندسة المشاريع','ضبط التكاليف',2200]
+].map(([t,c,sub,p],k)=>({t,c,sub,p,r:(4.6+((k*7)%5)/10).toFixed(1)}));
 const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[←🔥()/]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
 const STOP=new Set(['و','في','من','ال','لل','الـ','بالـ','لمشروع','لمبني','مثل']);
 function searchCatalog(q){
   const nq=norm(q); if(!nq||nq.includes('الاكثر طلبا')) return CATALOG.slice().sort((a,b)=>b.r-a.r).slice(0,10);
   const words=nq.split(' ').filter(w=>w.length>1&&!STOP.has(w));
-  return CATALOG.map(s=>{const h=norm(s.t+' '+s.c);let sc=0;
-    if(h.includes(nq))sc+=10;if(norm(s.c)===nq)sc+=10;
+  return CATALOG.map(s=>{const h=norm(s.t+' '+s.c+' '+s.sub);let sc=0;
+    if(h.includes(nq))sc+=10;if(norm(s.c)===nq||norm(s.sub)===nq)sc+=20;
     words.forEach(w=>{const st=w.replace(/^(ال|بال|لل)/,'');if(h.includes(w)||(st.length>2&&h.includes(st)))sc++});return{s,sc}})
-   .filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc).map(x=>x.s);
+   .filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc).filter((x,_,arr)=>arr[0].sc<20||x.sc>=20).map(x=>x.s);
 }
 const $=id=>document.getElementById(id);
 function openModal(m){document.querySelectorAll('.modal.on').forEach(x=>x.classList.remove('on'));m.classList.add('on');document.body.style.overflow='hidden'}
@@ -556,7 +589,7 @@ function runSearch(q){
   $('sTitle').textContent=q?('نتائج: '+q):'الخدمات الأكثر طلبًا';
   $('sCount').textContent=res.length?(res.length+' خدمة متاحة'):'';
   $('sInput').value=q;
-  $('sRes').innerHTML=res.length?res.map(s=>`<div class="res-item"><div><b>${esc(s.t)}</b><small>${esc(s.c)} · ★ ${s.r}</small></div><div style="display:flex;gap:10px;align-items:center"><span class="pr">من ${s.p.toLocaleString('ar-SA')} ر.س</span><button class="btn btn-out" data-order="${esc(s.t)}">اطلب</button></div></div>`).join('')
+  $('sRes').innerHTML=res.length?res.map(s=>`<div class="res-item"><div><b>${esc(s.t)}</b><small>${esc(s.c)} › ${esc(s.sub)} · ★ ${s.r}</small></div><div style="display:flex;gap:10px;align-items:center"><span class="pr">من ${s.p.toLocaleString('ar-SA')} ر.س</span><button class="btn btn-out" data-order="${esc(s.t)}">اطلب</button></div></div>`).join('')
     :'<p class="empty">لا توجد نتائج مطابقة. جرّب كلمة أخرى مثل: معماري، إنشائي، BOQ، تكييف.</p>';
   openModal($('mSearch'));
 }
