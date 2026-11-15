@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مِحوَر | منصة المهندسين المستقلين</title>
+<meta name="description" content="منصة تربط المكاتب الهندسية وشركات المقاولات والتطوير العقاري بأفضل المهندسين المستقلين.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0E2A47; --navy-2:#163B61; --amber:#F2A33A; --amber-d:#D98A1F;
+  --ink:#1D2633; --muted:#5E6B7A; --line:#E3E8EE; --bg:#FFFFFF; --soft:#F5F7FA; --card:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E8EDF3; --muted:#9AA8B8; --line:#2A3746; --bg:#0F1720; --soft:#16212D; --card:#18242F;
+  }
+}
+:root[data-theme="dark"]{--ink:#E8EDF3; --muted:#9AA8B8; --line:#2A3746; --bg:#0F1720; --soft:#16212D; --card:#18242F;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 16px}}
+
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:24px;height:76px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:26px;color:var(--ink);white-space:nowrap}
+.logo svg{flex:none}
+.logo b{color:var(--amber)}
+.hsearch{flex:1;display:flex;max-width:640px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.hsearch input{flex:1;border:0;padding:10px 14px;font:inherit;background:transparent;color:var(--ink);outline:none;min-width:0}
+.hsearch button{background:var(--navy);color:#fff;padding:0 16px}
+nav.top{display:flex;align-items:center;gap:22px;margin-inline-start:auto;font-weight:500;white-space:nowrap}
+nav.top a:hover{color:var(--amber-d)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;padding:9px 20px;font-weight:600;transition:.2s}
+.btn-out{border:1px solid var(--amber);color:var(--amber-d)}
+.btn-out:hover{background:var(--amber);color:#1a1a1a}
+.btn-amber{background:var(--amber);color:#1a1a1a}
+.btn-amber:hover{background:var(--amber-d)}
+.burger{display:none}
+@media(max-width:1000px){nav.top .hide-m{display:none}}
+@media(max-width:760px){.hsearch{display:none}.burger{display:block}.logo{font-size:22px}}
+
+/* categories strip */
+.cats{border-top:1px solid var(--line)}
+.cats ul{display:flex;gap:28px;list-style:none;overflow-x:auto;scrollbar-width:none;padding:10px 0;color:var(--muted);font-size:15px;white-space:nowrap}
+.cats ul::-webkit-scrollbar{display:none}
+.cats a:hover{color:var(--ink)}
+
+/* ===== Hero ===== */
+.hero{padding:24px 0 0}
+.hero-box{position:relative;border-radius:18px;overflow:hidden;min-height:560px;display:flex;align-items:center;
+  background:
+   linear-gradient(90deg,rgba(14,42,71,.25),rgba(14,42,71,.92) 65%),
+   repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 40px),
+   repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 40px),
+   radial-gradient(circle at 20% 60%,#2C5C8E,#0E2A47 70%);}
+.hero-art{position:absolute;inset-inline-end:0;bottom:0;width:48%;height:100%;opacity:.9}
+.hero-in{position:relative;padding:56px;max-width:720px;color:#fff}
+.hero h1{font-size:52px;line-height:1.3;font-weight:600;margin-bottom:26px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero p.lead{color:#C9D6E4;font-size:18px;margin-bottom:24px}
+.bigsearch{display:flex;background:#fff;border-radius:10px;padding:6px;max-width:640px}
+.bigsearch input{flex:1;border:0;outline:none;font:inherit;font-size:17px;padding:10px 14px;color:#1d2633;min-width:0}
+.bigsearch button{background:var(--amber);color:#1a1a1a;border-radius:8px;padding:0 20px;font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pills a{border:1px solid rgba(255,255,255,.4);border-radius:30px;padding:6px 14px;font-size:14px;background:rgba(255,255,255,.08);transition:.2s}
+.pills a:hover{background:#fff;color:var(--navy)}
+.trusted{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:40px;color:#AFC1D4;font-size:14px}
+.trusted span.l{font-weight:600;letter-spacing:.3px;opacity:.85}
+@media(max-width:900px){.hero-art{display:none}.hero-in{padding:32px 20px}.hero h1{font-size:34px}.hero-box{min-height:auto}}
+
+/* ===== Sections ===== */
+section{padding:72px 0}
+.h2{font-size:34px;font-weight:600;margin-bottom:28px;line-height:1.35}
+.h2 em{font-style:normal;color:var(--amber-d)}
+.sub{color:var(--muted);margin-top:-16px;margin-bottom:28px}
+
+/* discipline grid */
+.disc{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.disc a{border:1px solid var(--line);border-radius:14px;padding:20px 16px;display:flex;flex-direction:column;gap:14px;background:var(--card);transition:.2s;min-height:130px}
+.disc a:hover{box-shadow:0 8px 24px rgba(14,42,71,.12);transform:translateY(-2px);border-color:var(--amber)}
+.disc .ic{width:44px;height:44px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--navy-2)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .disc .ic{color:var(--amber)}}
+.disc span{font-weight:500;font-size:15px}
+@media(max-width:1100px){.disc{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.disc{grid-template-columns:repeat(2,1fr)}}
+
+/* service carousel */
+.car-head{display:flex;justify-content:space-between;align-items:center}
+.car-nav{display:flex;gap:8px}
+.car-nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.car{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+.car::-webkit-scrollbar{display:none}
+.svc{flex:0 0 220px;scroll-snap-align:start;border-radius:16px;padding:18px 16px;color:#fff;min-height:290px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.svc h3{font-size:19px;font-weight:600;position:relative}
+.svc .illu{background:rgba(255,255,255,.12);border-radius:10px;height:150px;display:grid;place-items:center;position:relative}
+.c1{background:#1F5F8B}.c2{background:#7A3E2E}.c3{background:#2E5E4E}.c4{background:#4B3F72}.c5{background:#8A5A12}.c6{background:#1E4A63}.c7{background:#5A2C4E}.c8{background:#334155}
+
+/* value prop */
+.vp{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:10px}
+.vp div{display:flex;flex-direction:column;gap:12px}
+.vp .ic{color:var(--amber-d)}
+.vp p{color:var(--muted)}
+.vp-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){.vp{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.vp{grid-template-columns:1fr}}
+
+/* split two audiences */
+.aud{background:var(--soft);border-radius:18px;padding:40px}
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:40px;padding:4px;margin-bottom:28px}
+.tabs button{padding:8px 22px;border-radius:40px;font-weight:600;color:var(--muted)}
+.tabs button.on{background:var(--navy);color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--amber);color:#1a1a1a;display:grid;place-items:center;font-weight:700;margin-bottom:12px}
+.step h4{font-size:17px;margin-bottom:6px}
+.step p{color:var(--muted);font-size:15px}
+.pane{display:none}.pane.on{display:block}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}.aud{padding:24px 16px}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* enterprise banner */
+.ent{border-radius:18px;background:linear-gradient(135deg,#0E2A47,#173F66);color:#fff;display:grid;grid-template-columns:1.1fr 1fr;gap:30px;padding:56px;align-items:center;overflow:hidden}
+.ent .badge{display:inline-block;background:var(--amber);color:#1a1a1a;border-radius:6px;padding:2px 10px;font-weight:700;font-size:14px;margin-bottom:14px}
+.ent h2{font-size:36px;font-weight:600;line-height:1.35;margin-bottom:18px}
+.ent ul{list-style:none;display:grid;gap:12px;margin-bottom:26px}
+.ent li{display:flex;gap:10px;align-items:flex-start;color:#D5E1EE}
+.ent li svg{flex:none;margin-top:5px;color:var(--amber)}
+.ent .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px}
+.offer{background:#fff;color:#1d2633;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.offer:last-child{margin-bottom:0}
+.av{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;color:#fff}
+.offer .meta{flex:1;min-width:0}
+.offer .meta b{display:block;font-size:15px}
+.offer .meta small{color:#5E6B7A}
+.offer .price{font-weight:700;color:#0E2A47;white-space:nowrap}
+@media(max-width:900px){.ent{grid-template-columns:1fr;padding:32px 20px}.ent h2{font-size:28px}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stats div{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card)}
+.stats b{display:block;font-size:34px;color:var(--amber-d);font-weight:700}
+.stats span{color:var(--muted)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+
+/* testimonials */
+.tst{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tcard{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card);display:flex;flex-direction:column;gap:16px}
+.tcard q{font-size:17px;color:var(--ink)}
+.tcard .who{display:flex;gap:12px;align-items:center;margin-top:auto}
+.tcard .who small{color:var(--muted);display:block}
+@media(max-width:900px){.tst{grid-template-columns:1fr}}
+
+/* guides */
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.guide{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.guide .img{height:170px}
+.guide h4{padding:16px 18px;font-size:17px;font-weight:600}
+@media(max-width:900px){.guides{grid-template-columns:1fr}}
+
+/* CTA */
+.cta{border-radius:18px;background:#5B2D1A;background:linear-gradient(135deg,#6B3417,#3A1C0E);color:#fff;text-align:center;padding:70px 20px}
+.cta h2{font-size:42px;font-weight:600;margin-bottom:26px}
+.cta h2 em{font-style:normal;color:var(--amber)}
+.cta .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-white{background:#fff;color:#1d2633}
+@media(max-width:700px){.cta h2{font-size:28px}}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
+.fcols{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+.fcols h5{font-size:16px;margin-bottom:14px}
+.fcols ul{list-style:none;display:grid;gap:10px;color:var(--muted);font-size:15px}
+.fcols a:hover{color:var(--ink)}
+.fbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);margin-top:40px;padding-top:24px;color:var(--muted)}
+.social{display:flex;gap:8px}
+.social a{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line)}
+@media(max-width:900px){.fcols{grid-template-columns:repeat(2,1fr)}}
+
+/* mobile drawer */
+.drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none}
+.drawer.on{display:block}
+.drawer aside{position:absolute;inset-block:0;inset-inline-start:0;width:min(320px,85vw);background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:18px}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <div class="wrap hbar">
+    <button class="burger" aria-label="القائمة" onclick="toggleDrawer(true)">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="logo" href="#">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="8" fill="#0E2A47"/><path d="M8 25V12l9-5 9 5v13" stroke="#F2A33A" stroke-width="2.4" stroke-linejoin="round"/><path d="M13 25v-7h8v7" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>
+      مِحوَر<b>.</b>
+    </a>
+    <form class="hsearch" onsubmit="return false">
+      <input type="search" placeholder="ابحث عن خدمة هندسية… مثل: مخططات إنشائية">
+      <button aria-label="بحث"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5.5"/><path d="m11 11 4 4"/></svg></button>
+    </form>
+    <nav class="top">
+      <a class="hide-m" href="#ent">حلول الشركات</a>
+      <a class="hide-m" href="#how">كيف تعمل المنصة</a>
+      <a class="hide-m" href="#join">انضم كمهندس</a>
+      <a class="hide-m" href="#">تسجيل الدخول</a>
+      <a class="btn btn-out" href="#">إنشاء حساب</a>
+    </nav>
+  </div>
+  <div class="cats"><div class="wrap"><ul>
+    <li><a href="#">الأكثر طلبًا 🔥</a></li>
+    <li><a href="#">التصميم المعماري</a></li>
+    <li><a href="#">الهندسة الإنشائية</a></li>
+    <li><a href="#">الكهرباء والطاقة</a></li>
+    <li><a href="#">الميكانيكا والتكييف (MEP)</a></li>
+    <li><a href="#">المساحة والطبوغرافيا</a></li>
+    <li><a href="#">حساب الكميات والتسعير</a></li>
+    <li><a href="#">BIM والنمذجة ثلاثية الأبعاد</a></li>
+    <li><a href="#">إدارة المشاريع</a></li>
+    <li><a href="#">التصميم الداخلي</a></li>
+    <li><a href="#">السلامة والحماية من الحريق</a></li>
+    <li><a href="#">البنية التحتية والطرق</a></li>
+    <li><a href="#">الاستشارات والإشراف</a></li>
+  </ul></div></div>
+</header>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)toggleDrawer(false)">
+  <aside>
+    <a class="logo" href="#">مِحوَر<b>.</b></a>
+    <a href="#">تسجيل الدخول</a>
+    <a href="#ent">حلول الشركات</a>
+    <a href="#how">كيف تعمل المنصة</a>
+    <a href="#join">انضم كمهندس</a>
+    <a class="btn btn-amber" href="#">إنشاء حساب</a>
+  </aside>
+</div>
+
+<!-- ========== HERO ========== -->
+<div class="hero"><div class="wrap">
+  <div class="hero-box">
+    <svg class="hero-art" viewBox="0 0 600 560" fill="none" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g stroke="#F2A33A" stroke-width="2" opacity=".85">
+        <path d="M80 560V220h120v340M200 560V140h140v420M340 560V260h110v300M450 560V180h90v380"/>
+        <path d="M100 250h80M100 290h80M100 330h80M100 370h80M220 170h100M220 210h100M220 250h100M220 290h100M220 330h100M360 290h70M360 330h70M470 210h50M470 250h50M470 290h50"/>
+      </g>
+      <g stroke="#fff" stroke-width="2" opacity=".6">
+        <path d="M270 40v100M230 40h240M440 40v30M440 70l-14 18M440 70l14 18"/>
+        <path d="M270 40l-50 30h50"/>
+      </g>
+      <g stroke="#8FB3D9" stroke-dasharray="6 6" opacity=".5"><path d="M40 520h540M60 100v440"/></g>
+    </svg>
+    <div class="hero-in">
+      <h1>مهندسون مستقلون<br>يُنجزون <em>مشروعك</em> باحتراف</h1>
+      <p class="lead">منصة تجمع المكاتب الهندسية وشركات المقاولات والتطوير العقاري مع نخبة من المهندسين المستقلين المعتمدين.</p>
+      <form class="bigsearch" onsubmit="return false">
+        <input id="heroInput" type="search" placeholder="ابحث عن أي خدمة هندسية…">
+        <button>بحث</button>
+      </form>
+      <div class="pills">
+        <a href="#">مخططات معمارية ←</a>
+        <a href="#">تصميم إنشائي خرساني ←</a>
+        <a href="#">حساب كميات BOQ ←</a>
+        <a href="#">نمذجة Revit / BIM ←</a>
+        <a href="#">تصميم أنظمة التكييف ←</a>
+      </div>
+      <div class="trusted">
+        <span class="l">يثق بنا:</span>
+        <span>مكاتب هندسية</span><span>•</span>
+        <span>شركات مقاولات</span><span>•</span>
+        <span>مطورون عقاريون</span><span>•</span>
+        <span>جهات استشارية</span>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ========== DISCIPLINES ========== -->
+<section><div class="wrap">
+  <div class="disc">
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 23V10l10-6 10 6v13M9 23v-7h8v7"/></svg></div><span>التصميم المعماري</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 22h18M6 22V6h14v16M6 11h14M6 16h14M11 6v16M15 6v16"/></svg></div><span>الهندسة الإنشائية</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3 6 15h7l-1 8 8-12h-7z"/></svg></div><span>الكهرباء والطاقة</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="13" cy="13" r="3.5"/><path d="M13 3v4M13 19v4M3 13h4M19 13h4M6 6l3 3M17 17l3 3M6 20l3-3M17 9l3-3"/></svg></div><span>الميكانيكا والتكييف</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3v6M8 23l5-14 5 14M10 17h6"/><circle cx="13" cy="3" r="1"/></svg></div><span>المساحة والطبوغرافيا</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="16" height="20" rx="2"/><path d="M9 8h8M9 12h8M9 16h5"/></svg></div><span>حساب الكميات والتسعير</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m13 3 9 5v10l-9 5-9-5V8z"/><path d="m4 8 9 5 9-5M13 13v10"/></svg></div><span>BIM والنمذجة ثلاثية الأبعاد</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="20" height="17" rx="2"/><path d="M3 10h20M8 3v4M18 3v4M7 15h4M7 18h7"/></svg></div><span>إدارة المشاريع والجدولة</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18v-5a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5M4 18h18M6 18v3M20 18v3M8 10V7h10v3"/></svg></div><span>التصميم الداخلي</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 23c5 0 7-4 7-7 0-5-5-7-5-12-3 2-4 5-4 7-1-1-2-2-2-4-2 2-3 5-3 9 0 3 2 7 7 7z"/></svg></div><span>السلامة والحماية من الحريق</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 22 10 4h6l7 18M13 6v3M13 12v3M13 18v3"/></svg></div><span>البنية التحتية والطرق</span></a>
+    <a href="#"><div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21V8l8-4 8 4v13"/><path d="m9 14 3 3 5-6"/></svg></div><span>الإشراف والاستشارات</span></a>
+  </div>
+</div></section>
+
+<!-- ========== POPULAR SERVICES ========== -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="car-head">
+    <h2 class="h2">الخدمات الأكثر طلبًا</h2>
+    <div class="car-nav">
+      <button aria-label="السابق" onclick="slide(1)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 3 5 5-5 5"/></svg></button>
+      <button aria-label="التالي" onclick="slide(-1)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 3-5 5 5 5"/></svg></button>
+    </div>
+  </div>
+  <div class="car" id="car">
+    <a class="svc c1" href="#"><h3>مخططات معمارية للفلل</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="5" width="100" height="80"/><path d="M5 45h55V5M60 45v40M80 45h25M60 65h20"/></svg></div></a>
+    <a class="svc c2" href="#"><h3>تصميم إنشائي خرساني</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M10 80h90M20 80V20h70v60M20 40h70M20 60h70M43 20v60M67 20v60"/></svg></div></a>
+    <a class="svc c3" href="#"><h3>حساب كميات وجداول BOQ</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><rect x="15" y="5" width="80" height="80" rx="4"/><path d="M15 25h80M15 45h80M15 65h80M45 5v80"/></svg></div></a>
+    <a class="svc c4" href="#"><h3>نمذجة BIM بالـ Revit</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="m55 5 45 22v36L55 85 10 63V27z"/><path d="m10 27 45 22 45-22M55 49v36"/></svg></div></a>
+    <a class="svc c5" href="#"><h3>تصميم أنظمة التكييف HVAC</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><rect x="10" y="20" width="90" height="40" rx="6"/><path d="M20 70c5 6 10 6 15 0s10-6 15 0 10 6 15 0 10-6 15 0"/><path d="M20 35h70M20 45h70"/></svg></div></a>
+    <a class="svc c6" href="#"><h3>المخططات الكهربائية</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M5 45h25l8-18 12 36 12-36 12 36 8-18h23"/></svg></div></a>
+    <a class="svc c7" href="#"><h3>إظهار معماري 3D واقعي</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M10 80V35l30-25 30 25v45M70 50h30v30M10 80h90"/><rect x="30" y="50" width="20" height="30"/></svg></div></a>
+    <a class="svc c8" href="#"><h3>الرفع المساحي والطبوغرافي</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M5 70c20-30 35-30 50-10s30 20 50-20"/><path d="M5 82c20-20 35-20 50-5s30 12 50-12" opacity=".6"/><circle cx="55" cy="30" r="5"/><path d="M55 35v20"/></svg></div></a>
+    <a class="svc c1" href="#"><h3>جدولة المشاريع Primavera</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M10 15h40M30 35h45M45 55h35M65 75h35"/><path d="M10 5v80" opacity=".5"/></svg></div></a>
+    <a class="svc c2" href="#"><h3>مخططات الدفاع المدني</h3><div class="illu"><svg width="110" height="90" fill="none" stroke="#fff" stroke-width="2"><path d="M55 85c18 0 26-14 26-26 0-18-18-26-18-44-11 7-14 18-14 26-4-4-7-7-7-15-7 7-11 18-11 33 0 12 6 26 24 26z"/></svg></div></a>
+  </div>
+</div></section>
+
+<!-- ========== VALUE PROPS ========== -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="vp-head">
+    <h2 class="h2" style="margin:0">كل ما تحتاجه لمشروعك الهندسي في مكان واحد</h2>
+    <a class="btn btn-amber" href="#">ابدأ الآن مجانًا</a>
+  </div>
+  <div class="vp" style="margin-top:36px">
+    <div><svg class="ic" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 4 8 10v12c0 10 7 18 16 22 9-4 16-12 16-22V10z"/><path d="m17 24 5 5 10-11"/></svg><h4>مهندسون موثّقون</h4><p>نتحقق من الشهادات والعضويات المهنية وسابقة الأعمال قبل قبول أي مهندس.</p></div>
+    <div><svg class="ic" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l7 5"/></svg><h4>تسليم في الوقت المحدد</h4><p>جداول زمنية واضحة لكل مرحلة، مع متابعة التقدم وتسليم الملفات من لوحة واحدة.</p></div>
+    <div><svg class="ic" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="12" width="36" height="26" rx="3"/><path d="M6 20h36M14 30h8"/></svg><h4>دفع آمن بالمراحل</h4><p>المبلغ محفوظ لدى المنصة ولا يُصرف للمهندس إلا بعد اعتمادك لكل مرحلة تسليم.</p></div>
+    <div><svg class="ic" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 34V14a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-10 8z"/></svg><h4>دعم فني على مدار الساعة</h4><p>فريق دعم يفهم طبيعة المشاريع الهندسية ويساعدك في حل أي إشكال.</p></div>
+  </div>
+</div></section>
+
+<!-- ========== HOW IT WORKS (two audiences) ========== -->
+<section id="how" style="padding-top:0"><div class="wrap">
+  <div class="aud">
+    <h2 class="h2">كيف تعمل المنصة؟</h2>
+    <div class="tabs" role="tablist">
+      <button class="on" data-pane="p-client">أنا جهة طارحة للمشاريع</button>
+      <button data-pane="p-eng">أنا مهندس مستقل</button>
+    </div>
+    <div class="pane on" id="p-client">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h4>اطرح مشروعك</h4><p>اكتب وصف المشروع، أرفق المخططات وكراسة الشروط، وحدد الميزانية والمدة.</p></div>
+        <div class="step"><div class="n">2</div><h4>استقبل العروض</h4><p>يصلك عروض فنية ومالية من مهندسين مؤهلين في التخصص المطلوب.</p></div>
+        <div class="step"><div class="n">3</div><h4>قارن واختر</h4><p>راجع سابقة الأعمال والتقييمات والشهادات، ثم اعتمد العرض الأنسب.</p></div>
+        <div class="step"><div class="n">4</div><h4>استلم واعتمد</h4><p>تابع التسليمات مرحلة بمرحلة، وادفع فقط عند اعتمادك لكل مرحلة.</p></div>
+      </div>
+    </div>
+    <div class="pane" id="p-eng">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h4>أنشئ ملفك المهني</h4><p>أضف تخصصك، شهاداتك، رقم العضوية المهنية، وأفضل مشاريعك السابقة.</p></div>
+        <div class="step"><div class="n">2</div><h4>اعرض خدماتك</h4><p>أنشئ باقات خدمات بأسعار واضحة، أو قدّم عروضًا على المشاريع المطروحة.</p></div>
+        <div class="step"><div class="n">3</div><h4>نفّذ باحتراف</h4><p>تواصل مع العميل، سلّم الملفات بمراحل، واستفد من أدوات إدارة المشروع.</p></div>
+        <div class="step"><div class="n">4</div><h4>استلم أرباحك</h4><p>تُحوّل أرباحك إلى حسابك البنكي فور اعتماد كل مرحلة.</p></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ========== ENTERPRISE ========== -->
+<section id="ent" style="padding-top:0"><div class="wrap">
+  <div class="ent">
+    <div>
+      <span class="badge">مِحوَر للشركات</span>
+      <h2>حلول مخصّصة للمكاتب الهندسية وشركات المقاولات والتطوير العقاري</h2>
+      <ul>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m3 8 3 3 7-7"/></svg>فريق متخصص يرشّح لك أفضل المهندسين لمشروعك خلال 48 ساعة</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m3 8 3 3 7-7"/></svg>حساب موحّد لفريقك مع صلاحيات وميزانيات لكل مشروع</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m3 8 3 3 7-7"/></svg>فواتير ضريبية مجمّعة ودفع بالتحويل البنكي</li>
+        <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m3 8 3 3 7-7"/></svg>اتفاقيات سرية وحماية حقوق الملكية للمخططات</li>
+      </ul>
+      <a class="btn btn-amber" href="#">تواصل مع فريق الشركات</a>
+    </div>
+    <div class="panel" aria-hidden="true">
+      <div style="color:#AFC1D4;font-size:14px;margin-bottom:12px">عروض على مشروع: «مجمع سكني – 12 فيلا»</div>
+      <div class="offer"><div class="av" style="background:#1F5F8B">م.ع</div><div class="meta"><b>م. عبدالله — مهندس إنشائي</b><small>★ 4.9 · 14 سنة خبرة · ETABS / SAFE</small></div><div class="price">18,500 ر.س</div></div>
+      <div class="offer"><div class="av" style="background:#7A3E2E">م.س</div><div class="meta"><b>م. سارة — مهندسة معمارية</b><small>★ 5.0 · 9 سنوات · Revit / BIM</small></div><div class="price">22,000 ر.س</div></div>
+      <div class="offer"><div class="av" style="background:#2E5E4E">م.ف</div><div class="meta"><b>م. فهد — مهندس MEP</b><small>★ 4.8 · 11 سنة · HVAC / Plumbing</small></div><div class="price">15,750 ر.س</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ========== STATS ========== -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="stats">
+    <div><b>+8,000</b><span>مهندس مستقل موثّق</span></div>
+    <div><b>+40</b><span>تخصصًا هندسيًا</span></div>
+    <div><b>+12,000</b><span>مشروع منجز</span></div>
+    <div><b>4.9/5</b><span>متوسط رضا العملاء</span></div>
+  </div>
+</div></section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section style="padding-top:0"><div class="wrap">
+  <h2 class="h2">ماذا يقول عملاؤنا</h2>
+  <div class="tst">
+    <div class="tcard"><q>غطّينا ضغط المشاريع في الموسم بمهندسين إنشائيين مستقلين دون الحاجة لتوظيف دائم. التسليم كان دقيقًا ومطابقًا للكود.</q><div class="who"><div class="av" style="background:#1E4A63">م.ه</div><div><b>مكتب هندسي استشاري</b><small>مدير المشاريع</small></div></div></div>
+    <div class="tcard"><q>احتجنا حساب كميات لمناقصة كبيرة خلال أسبوع. وصلتنا عروض خلال ساعات وتم التسليم قبل الموعد.</q><div class="who"><div class="av" style="background:#5A2C4E">ش.م</div><div><b>شركة مقاولات عامة</b><small>مدير العطاءات</small></div></div></div>
+    <div class="tcard"><q>نماذج BIM والإظهار المعماري ساعدتنا في تسويق المشروع قبل بدء التنفيذ. تجربة احترافية من البداية للنهاية.</q><div class="who"><div class="av" style="background:#8A5A12">ت.ع</div><div><b>مطوّر عقاري</b><small>الرئيس التنفيذي</small></div></div></div>
+  </div>
+</div></section>
+
+<!-- ========== GUIDES ========== -->
+<section style="padding-top:0"><div class="wrap">
+  <h2 class="h2">أدلة تساعدك على النجاح</h2>
+  <div class="guides">
+    <a class="guide" href="#"><div class="img" style="background:linear-gradient(135deg,#1F5F8B,#0E2A47)"></div><h4>كيف تكتب نطاق عمل واضح لمشروع هندسي</h4></a>
+    <a class="guide" href="#"><div class="img" style="background:linear-gradient(135deg,#8A5A12,#3A1C0E)"></div><h4>دليل تسعير الخدمات الهندسية للمستقلين</h4></a>
+    <a class="guide" href="#"><div class="img" style="background:linear-gradient(135deg,#2E5E4E,#163B61)"></div><h4>متى تستعين بمهندس مستقل بدل التوظيف؟</h4></a>
+  </div>
+</div></section>
+
+<!-- ========== CTA ========== -->
+<section id="join" style="padding-top:0"><div class="wrap">
+  <div class="cta">
+    <h2>مشروعك الهندسي القادم <em>يبدأ هنا</em></h2>
+    <div class="row">
+      <a class="btn btn-amber" href="#">اطرح مشروعًا</a>
+      <a class="btn btn-white" href="#">سجّل كمهندس مستقل</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- ========== FOOTER ========== -->
+<footer><div class="wrap">
+  <div class="fcols">
+    <div><h5>التخصصات</h5><ul><li><a href="#">التصميم المعماري</a></li><li><a href="#">الهندسة الإنشائية</a></li><li><a href="#">الكهرباء والطاقة</a></li><li><a href="#">الميكانيكا والتكييف</a></li><li><a href="#">المساحة</a></li><li><a href="#">حساب الكميات</a></li><li><a href="#">BIM</a></li></ul></div>
+    <div><h5>للجهات الطارحة</h5><ul><li><a href="#">كيف تعمل المنصة</a></li><li><a href="#">اطرح مشروعًا</a></li><li><a href="#">قصص نجاح</a></li><li><a href="#">ضمان الجودة</a></li><li><a href="#">الأدلة</a></li></ul></div>
+    <div><h5>للمهندسين</h5><ul><li><a href="#">انضم كمهندس</a></li><li><a href="#">التحقق المهني</a></li><li><a href="#">مستويات المهندسين</a></li><li><a href="#">مجتمع المهندسين</a></li><li><a href="#">الفعاليات</a></li></ul></div>
+    <div><h5>حلول الشركات</h5><ul><li><a href="#">مِحوَر للشركات</a></li><li><a href="#">إدارة المشاريع</a></li><li><a href="#">ترشيح المهندسين</a></li><li><a href="#">تواصل مع المبيعات</a></li></ul></div>
+    <div><h5>الشركة</h5><ul><li><a href="#">من نحن</a></li><li><a href="#">مركز المساعدة</a></li><li><a href="#">الثقة والأمان</a></li><li><a href="#">شروط الاستخدام</a></li><li><a href="#">سياسة الخصوصية</a></li><li><a href="#">الوظائف</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <div style="display:flex;align-items:center;gap:12px"><a class="logo" href="#" style="font-size:22px">مِحوَر<b>.</b></a><span>© 2026 جميع الحقوق محفوظة</span></div>
+    <div class="social">
+      <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="m12.3 1.2-3.8 4.4L5.2 1.2H.5l5.7 7.4-5.4 6.2h2.3l4.1-4.7 3.6 4.7h4.7L9.6 7l5-5.8zM11.5 13.4 3.2 2.5h1.4l8.2 10.9z"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.3 13.3h-2.2V9.8c0-.8 0-1.9-1.2-1.9s-1.3.9-1.3 1.8v3.5H6.3V6.1h2.1v1h.1c.3-.6 1-1.2 2.1-1.2 2.3 0 2.7 1.5 2.7 3.4zM3.8 5.1a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6m1.1 8.2H2.7V6.1h2.2z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="13" height="13" rx="4"/><circle cx="8" cy="8" r="3"/></svg></a>
+    </div>
+  </div>
+</div></footer>
+
+<script>
+function toggleDrawer(on){document.getElementById('drawer').classList.toggle('on',on)}
+function slide(dir){const c=document.getElementById('car');c.scrollBy({left:dir*480,behavior:'smooth'})}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id===b.dataset.pane));
+}));
+// rotating placeholder
+const ph=['مخططات معمارية لفيلا دورين…','حساب كميات لمشروع سكني…','تصميم إنشائي لمبنى تجاري…','نمذجة BIM بالـ Revit…','مخططات الدفاع المدني…'];
+let i=0;const inp=document.getElementById('heroInput');
+setInterval(()=>{if(document.activeElement!==inp){i=(i+1)%ph.length;inp.placeholder=ph[i]}},2600);
+</script>
+</body>
+</html>
