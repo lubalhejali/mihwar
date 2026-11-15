@@ -2,9 +2,5 @@ services:
   - type: web
     name: mihwar
     runtime: static
-    staticPublishPath: .
-    buildCommand: ""
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: SAMEORIGIN
+    buildCommand: echo "static site, no build"
+    staticPublishPath: ./
