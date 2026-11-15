@@ -61,7 +61,7 @@ nav.top a:hover{color:var(--amber-d)}
    repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 40px),
    radial-gradient(circle at 20% 60%,#2C5C8E,#0E2A47 70%);}
 .hero-art{position:absolute;inset-inline-end:0;bottom:0;width:48%;height:100%;opacity:.9}
-.hero-in{position:relative;padding:56px;max-width:720px;color:#fff}
+.hero-in{position:relative;padding:56px;max-width:720px;color:#fff;flex:1 1 auto;min-width:0}
 .hero h1{font-size:52px;line-height:1.3;font-weight:600;margin-bottom:26px}
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero p.lead{color:#C9D6E4;font-size:18px;margin-bottom:24px}
@@ -187,6 +187,34 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none}
 .drawer.on{display:block}
 .drawer aside{position:absolute;inset-block:0;inset-inline-start:0;width:min(320px,85vw);background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:18px}
+/* ===== Modal & toast ===== */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(8,18,30,.55);display:none;align-items:flex-start;justify-content:center;padding:6vh 16px;overflow-y:auto}
+.modal.on{display:flex}
+.mbox{background:var(--card);color:var(--ink);border-radius:14px;width:100%;max-width:640px;padding:24px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.mbox h3{font-size:22px;margin-bottom:6px;padding-inline-end:40px}
+.mbox .sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.mclose{position:absolute;top:12px;inset-inline-end:12px;width:36px;height:36px;border-radius:50%;font-size:22px;line-height:1;color:var(--muted)}
+.mclose:hover{background:var(--soft)}
+.msearch{display:flex;gap:8px;margin-bottom:16px}
+.msearch input,.field input,.field select,.field textarea{flex:1;width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;background:var(--bg);color:var(--ink)}
+.res{display:grid;gap:10px}
+.res-item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.res-item b{display:block;font-weight:600}
+.res-item small{color:var(--muted)}
+.res-item .pr{white-space:nowrap;font-weight:700;color:var(--amber-d)}
+.res-item>div:first-child{flex:1;min-width:0}
+@media(max-width:560px){.res-item{flex-wrap:wrap}.res-item>div:last-child{width:100%;justify-content:space-between}.mbox{padding:20px 16px}}
+.empty{color:var(--muted);text-align:center;padding:24px 0}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.roles label{border:1px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;text-align:center;font-weight:500}
+.roles input{display:none}
+.roles label:has(input:checked){border-color:var(--amber);background:rgba(242,163,58,.12)}
+.field{margin-bottom:12px}
+.field span{display:block;font-size:14px;margin-bottom:4px;color:var(--muted)}
+.mswitch{margin-top:12px;font-size:14px;color:var(--muted);text-align:center}
+.mswitch a{color:var(--amber-d);font-weight:600;cursor:pointer}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:120;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%)}
 </style>
 </head>
 <body>
@@ -396,7 +424,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 </div></section>
 
 <!-- ========== TESTIMONIALS ========== -->
-<section style="padding-top:0"><div class="wrap">
+<section id="testi" style="padding-top:0"><div class="wrap">
   <h2 class="h2">ماذا يقول عملاؤنا</h2>
   <div class="tst">
     <div class="tcard"><q>غطّينا ضغط المشاريع في الموسم بمهندسين إنشائيين مستقلين دون الحاجة لتوظيف دائم. التسليم كان دقيقًا ومطابقًا للكود.</q><div class="who"><div class="av" style="background:#1E4A63">م.ه</div><div><b>مكتب هندسي استشاري</b><small>مدير المشاريع</small></div></div></div>
@@ -406,7 +434,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
 </div></section>
 
 <!-- ========== GUIDES ========== -->
-<section style="padding-top:0"><div class="wrap">
+<section id="guides" style="padding-top:0"><div class="wrap">
   <h2 class="h2">أدلة تساعدك على النجاح</h2>
   <div class="guides">
     <a class="guide" href="#"><div class="img" style="background:linear-gradient(135deg,#1F5F8B,#0E2A47)"></div><h4>كيف تكتب نطاق عمل واضح لمشروع هندسي</h4></a>
@@ -445,6 +473,39 @@ footer{border-top:1px solid var(--line);padding:56px 0 24px;margin-top:40px}
   </div>
 </div></footer>
 
+<!-- Search modal -->
+<div class="modal" id="mSearch" role="dialog" aria-modal="true" aria-labelledby="sTitle">
+  <div class="mbox">
+    <button class="mclose" aria-label="إغلاق" data-close>&times;</button>
+    <h3 id="sTitle">نتائج البحث</h3>
+    <p class="sub" id="sCount"></p>
+    <form class="msearch" id="sForm"><input id="sInput" type="search" placeholder="ابحث عن خدمة هندسية…"><button class="btn btn-amber">بحث</button></form>
+    <div class="res" id="sRes"></div>
+  </div>
+</div>
+
+<!-- Auth modal -->
+<div class="modal" id="mAuth" role="dialog" aria-modal="true" aria-labelledby="aTitle">
+  <div class="mbox" style="max-width:460px">
+    <button class="mclose" aria-label="إغلاق" data-close>&times;</button>
+    <h3 id="aTitle">إنشاء حساب</h3>
+    <p class="sub" id="aSub">انضم إلى مِحوَر في أقل من دقيقة.</p>
+    <form id="aForm">
+      <div class="roles" id="aRoles">
+        <label><input type="radio" name="role" value="client" checked>جهة طارحة للمشاريع</label>
+        <label><input type="radio" name="role" value="eng">مهندس مستقل</label>
+      </div>
+      <label class="field" id="aNameF"><span>الاسم / اسم الجهة</span><input name="name" autocomplete="name"></label>
+      <label class="field"><span>البريد الإلكتروني</span><input name="email" type="email" required autocomplete="email"></label>
+      <label class="field"><span>كلمة المرور</span><input name="pw" type="password" required minlength="6" autocomplete="current-password"></label>
+      <button class="btn btn-amber" style="width:100%" id="aBtn">إنشاء الحساب</button>
+    </form>
+    <p class="mswitch" id="aSwitch"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
 <script>
 function toggleDrawer(on){document.getElementById('drawer').classList.toggle('on',on)}
 function slide(dir){const c=document.getElementById('car');c.scrollBy({left:dir*480,behavior:'smooth'})}
@@ -456,6 +517,93 @@ document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',
 const ph=['مخططات معمارية لفيلا دورين…','حساب كميات لمشروع سكني…','تصميم إنشائي لمبنى تجاري…','نمذجة BIM بالـ Revit…','مخططات الدفاع المدني…'];
 let i=0;const inp=document.getElementById('heroInput');
 setInterval(()=>{if(document.activeElement!==inp){i=(i+1)%ph.length;inp.placeholder=ph[i]}},2600);
+
+/* ===== Demo service catalog ===== */
+const CATALOG=[
+ ['مخططات معمارية للفلل','التصميم المعماري',1500],['مخططات معمارية لعمارة سكنية','التصميم المعماري',3500],['واجهات معمارية حديثة','التصميم المعماري',900],
+ ['تصميم إنشائي خرساني','الهندسة الإنشائية',2500],['تصميم منشآت حديدية','الهندسة الإنشائية',3000],['تقرير سلامة إنشائية وترميم','الهندسة الإنشائية',1800],
+ ['المخططات الكهربائية','الكهرباء والطاقة',1200],['تصميم أنظمة الطاقة الشمسية','الكهرباء والطاقة',1600],['حساب الأحمال الكهربائية','الكهرباء والطاقة',700],
+ ['تصميم أنظمة التكييف HVAC','الميكانيكا والتكييف MEP',1800],['تصميم الصحي والسباكة','الميكانيكا والتكييف MEP',1100],['مخططات MEP منسقة','الميكانيكا والتكييف MEP',4000],
+ ['الرفع المساحي والطبوغرافي','المساحة والطبوغرافيا',1400],['تحديد حدود وقطع الأراضي','المساحة والطبوغرافيا',800],
+ ['حساب كميات وجداول BOQ','حساب الكميات والتسعير',1300],['تسعير مناقصات المقاولات','حساب الكميات والتسعير',2200],
+ ['نمذجة BIM بالـ Revit','BIM والنمذجة ثلاثية الأبعاد',2800],['إظهار معماري 3D واقعي','BIM والنمذجة ثلاثية الأبعاد',900],['كشف التعارضات Clash Detection','BIM والنمذجة ثلاثية الأبعاد',2000],
+ ['جدولة المشاريع Primavera','إدارة المشاريع',1500],['إدارة مشروع وإعداد تقارير التقدم','إدارة المشاريع',3500],
+ ['تصميم داخلي سكني','التصميم الداخلي',1200],['تصميم داخلي تجاري ومكاتب','التصميم الداخلي',2400],
+ ['مخططات الدفاع المدني','السلامة والحماية من الحريق',1600],['تصميم أنظمة الإطفاء والإنذار','السلامة والحماية من الحريق',2100],
+ ['تصميم طرق وتقاطعات','البنية التحتية والطرق',3800],['تصميم شبكات المياه والصرف','البنية التحتية والطرق',3200],
+ ['إشراف هندسي على التنفيذ','الاستشارات والإشراف',4500],['استشارة هندسية بالساعة','الاستشارات والإشراف',250]
+].map(([t,c,p],k)=>({t,c,p,r:(4.6+((k*7)%5)/10).toFixed(1)}));
+const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[←🔥()/]/g,' ').toLowerCase().replace(/\s+/g,' ').trim();
+const STOP=new Set(['و','في','من','ال','لل','الـ','بالـ','لمشروع','لمبني','مثل']);
+function searchCatalog(q){
+  const nq=norm(q); if(!nq||nq.includes('الاكثر طلبا')) return CATALOG.slice().sort((a,b)=>b.r-a.r).slice(0,10);
+  const words=nq.split(' ').filter(w=>w.length>1&&!STOP.has(w));
+  return CATALOG.map(s=>{const h=norm(s.t+' '+s.c);let sc=0;
+    if(h.includes(nq))sc+=10;if(norm(s.c)===nq)sc+=10;
+    words.forEach(w=>{const st=w.replace(/^(ال|بال|لل)/,'');if(h.includes(w)||(st.length>2&&h.includes(st)))sc++});return{s,sc}})
+   .filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc).map(x=>x.s);
+}
+const $=id=>document.getElementById(id);
+function openModal(m){document.querySelectorAll('.modal.on').forEach(x=>x.classList.remove('on'));m.classList.add('on');document.body.style.overflow='hidden'}
+function closeModals(){document.querySelectorAll('.modal.on').forEach(x=>x.classList.remove('on'));document.body.style.overflow=''}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))closeModals()}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModals();toggleDrawer(false)}});
+let tT;function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2600)}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function runSearch(q){
+  q=(q||'').replace(/[←🔥]/g,'').trim();
+  const res=searchCatalog(q);
+  $('sTitle').textContent=q?('نتائج: '+q):'الخدمات الأكثر طلبًا';
+  $('sCount').textContent=res.length?(res.length+' خدمة متاحة'):'';
+  $('sInput').value=q;
+  $('sRes').innerHTML=res.length?res.map(s=>`<div class="res-item"><div><b>${esc(s.t)}</b><small>${esc(s.c)} · ★ ${s.r}</small></div><div style="display:flex;gap:10px;align-items:center"><span class="pr">من ${s.p.toLocaleString('ar-SA')} ر.س</span><button class="btn btn-out" data-order="${esc(s.t)}">اطلب</button></div></div>`).join('')
+    :'<p class="empty">لا توجد نتائج مطابقة. جرّب كلمة أخرى مثل: معماري، إنشائي، BOQ، تكييف.</p>';
+  openModal($('mSearch'));
+}
+$('sForm').addEventListener('submit',e=>{e.preventDefault();runSearch($('sInput').value)});
+document.querySelectorAll('.hsearch,.bigsearch').forEach(f=>{f.removeAttribute('onsubmit');f.addEventListener('submit',e=>{e.preventDefault();runSearch(f.querySelector('input').value||f.querySelector('input').placeholder.replace('…',''))})});
+$('sRes').addEventListener('click',e=>{const b=e.target.closest('[data-order]');if(b)openAuth('signup','client','لطلب «'+b.dataset.order+'» أنشئ حساب جهة طارحة.')});
+
+/* ===== Auth ===== */
+let authMode='signup';
+function openAuth(mode,role,sub){
+  authMode=mode;const su=mode==='signup';toggleDrawer(false);
+  $('aTitle').textContent=su?'إنشاء حساب':'تسجيل الدخول';
+  $('aSub').textContent=sub||(su?'انضم إلى مِحوَر في أقل من دقيقة.':'مرحبًا بعودتك!');
+  $('aRoles').style.display=su?'':'none';$('aNameF').style.display=su?'':'none';
+  $('aBtn').textContent=su?'إنشاء الحساب':'دخول';
+  if(role)$('aForm').querySelector(`input[value="${role}"]`).checked=true;
+  $('aSwitch').innerHTML=su?'لديك حساب؟ <a data-auth="login">سجّل الدخول</a>':'ليس لديك حساب؟ <a data-auth="signup">أنشئ حسابًا</a>';
+  openModal($('mAuth'));
+}
+$('aSwitch').addEventListener('click',e=>{const a=e.target.closest('[data-auth]');if(a)openAuth(a.dataset.auth)});
+$('aForm').addEventListener('submit',e=>{e.preventDefault();const f=e.target;
+  if(authMode==='signup'&&!f.elements.name.value.trim()){f.elements.name.focus();toast('يرجى إدخال الاسم');return}
+  const role=f.elements.role.value==='eng'?'مهندس مستقل':'جهة طارحة';
+  closeModals();f.reset();
+  toast(authMode==='signup'?`تم استلام طلب التسجيل (${role}) — هذه نسخة تجريبية، سيتم تفعيل الحسابات قريبًا.`:'هذه نسخة تجريبية — تسجيل الدخول سيُفعَّل قريبًا.');
+});
+
+/* ===== Route every placeholder link ===== */
+const AUTH_MAP={'تسجيل الدخول':['login'],'إنشاء حساب':['signup'],'ابدأ الآن مجانًا':['signup'],'اطرح مشروعًا':['signup','client','اطرح مشروعك الأول واستقبل عروض المهندسين.'],
+ 'سجّل كمهندس مستقل':['signup','eng','سجّل كمهندس مستقل وابدأ استقبال المشاريع.'],'انضم كمهندس':['signup','eng','سجّل كمهندس مستقل وابدأ استقبال المشاريع.'],
+ 'تواصل مع فريق الشركات':['signup','client','سجّل جهتك وسيتواصل معك فريق الشركات.'],'تواصل مع المبيعات':['signup','client','سجّل جهتك وسيتواصل معك فريق الشركات.']};
+const SECTION_MAP={'كيف تعمل المنصة':'#how','مِحوَر للشركات':'#ent','قصص نجاح':'#testi','الأدلة':'#guides'};
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a');if(!a)return;
+  const href=a.getAttribute('href');const txt=a.textContent.replace(/\s+/g,' ').trim();
+  if(a.closest('#drawer'))toggleDrawer(false);
+  if(!href||href!=='#'){return}
+  e.preventDefault();
+  if(a.classList.contains('logo')){scrollTo({top:0,behavior:'smooth'});return}
+  if(AUTH_MAP[txt]){openAuth(...AUTH_MAP[txt]);return}
+  const inFooter=a.closest('footer');
+  if(inFooter&&SECTION_MAP[txt]){const t=document.querySelector(SECTION_MAP[txt]);if(t){t.scrollIntoView({behavior:'smooth'});return}}
+  const searchable=a.closest('.cats,.disc,.pills,#car')||(inFooter&&a.closest('div')?.querySelector('h5')?.textContent==='التخصصات');
+  if(searchable){runSearch(a.querySelector('h3,span')?.textContent||txt);return}
+  if(a.closest('.social')){toast('حسابات التواصل الاجتماعي ستُضاف قريبًا');return}
+  toast('صفحة «'+(txt||a.getAttribute('aria-label')||'')+'» قيد الإعداد — قريبًا');
+});
 </script>
 </body>
 </html>
